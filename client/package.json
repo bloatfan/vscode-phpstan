@@ -1,0 +1,59 @@
+{
+    "name": "vscode-phpstan",
+    "displayName": "vscode-phpstan",
+    "description": "Phpstan for Visual Studio Code",
+    "version": "0.1.0",
+    "publisher": "ritayzy",
+    "icon": "phpcs_icon.svg",
+    "engines": {
+        "vscode": "^1.10.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onLanguage:php"
+    ],
+    "main": "./out/src/extension",
+    "contributes": {
+       "configuration": {
+           "type": "object",
+           "title": "phpstan configuration",
+           "properties": {
+                "phpstan.enable": {
+					"type": "boolean",
+					"default": true,
+					"description": "Control whether phpstan is enabled for PHP files or not."
+				},
+                "phpstan.level": {
+                    "type": "number",
+                    "default": "0",
+                    "description": "Level of rule options - the higher the stricter"
+                },
+                "phpstan.configuration": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Path to project configuration file"
+                },
+                "phpstan.autoloadFile": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Project's additional autoload file path"
+                }
+           }
+       }
+    },
+    "scripts": {
+        "vscode:prepublish": "tsc -p ./",
+        "compile": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.0.3",
+        "vscode": "^1.0.0",
+        "mocha": "^2.3.3",
+        "@types/node": "^6.0.40",
+        "@types/mocha": "^2.2.32"
+    }
+}
