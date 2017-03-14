@@ -29,7 +29,6 @@ class PhpstanServer {
 	private ready: boolean = false;
 
 	constructor() {
-		console.log("Start PhpstanServer");
 		this.validating = Object.create(null);
 		this.connection = createConnection(new IPCMessageReader(process), new IPCMessageWriter(process));
 		this.documents = new TextDocuments();
@@ -64,7 +63,6 @@ class PhpstanServer {
 	 * @return A promise of initialization result or initialization error.
 	 */
     private onInitialize(params: InitializeParams) : Thenable<InitializeResult | ResponseError<InitializeError>> {
-		console.log("onInitialize");
 		this.rootPath = params.rootPath;
 		return PhpstanLinter.resolvePath(this.rootPath).then((linter): InitializeResult | ResponseError<InitializeError> => {
 			console.log("then");
@@ -88,6 +86,7 @@ class PhpstanServer {
 	 * @return void
 	 */
     private onDidChangeConfiguration(params: DidChangeConfigurationParams): void {
+		console.log(params.settings.phpstan);
         this.settings = params.settings.phpcs;
         this.ready = true;
         this.validateMany(this.documents.all());
@@ -110,6 +109,7 @@ class PhpstanServer {
 	 * @return void
 	 */
 	private onDidOpenDocument(event: TextDocumentChangeEvent ) : void {
+		console.log('private onDidOpenDocument(event: TextDocumentChangeEvent ) : void');
 		this.validateSingle(event.document);
 	}
 
@@ -120,6 +120,7 @@ class PhpstanServer {
 	 * @return void
 	 */
 	private onDidChangeDocument(event: TextDocumentChangeEvent ) : void {
+		console.log('private onDidChangeDocument(event: TextDocumentChangeEvent ) : void');
 		this.validateSingle(event.document);
 	}
 
@@ -130,6 +131,7 @@ class PhpstanServer {
 	 * @return void
 	 */
 	private onDidSaveDocument(event: TextDocumentChangeEvent ) : void {
+		console.log('private onDidChangeDocument(event: TextDocumentChangeEvent ) : void');
 		this.validateSingle(event.document);
 	}
 
